@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { ModalProvider } from "@/providers/modal-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,10 +14,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "African Braids",
-  description: "High quality african braids",
-};
 
 export default function RootLayout({
   children,
@@ -26,10 +23,9 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          {children}
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+          {<ModalProvider/>}
+          {children} {/* Render children directly */}
         </body>
       </html>
     </ClerkProvider>
