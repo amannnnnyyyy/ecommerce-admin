@@ -55,9 +55,7 @@ export const StoreModal = () =>{
                         </form>
                     </Form>
                 </div>
-
             </div>
-        {/* <Button onClick={()=>}>Future Create Store Form</Button> */}
     </Modal>
         )
 }
