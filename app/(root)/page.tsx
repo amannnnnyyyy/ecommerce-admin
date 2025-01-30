@@ -1,11 +1,8 @@
 "use client"
-import { Button } from "@/components/ui/button";
-import { DialogClose } from "@/components/ui/dialog";
-import { Modal } from "@/components/ui/modal";
 import { useStoreModal } from "@/hooks/use-store-modal";
-import {UserButton, UserProfile, useUser } from "@clerk/nextjs";
+import {useUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 
 
 export default function SetUpPage() {
@@ -15,6 +12,7 @@ export default function SetUpPage() {
       redirect('/sign-in');
     }
   }, [isSignedIn]);
+  
   
   const onOpen = useStoreModal((state)=>state.onOpen);
   const isOpen = useStoreModal((state)=>state.isOpen);
