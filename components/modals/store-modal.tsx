@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "../ui/button"
 
 const formSchema = z.object({
-        name: z.string().min(1),
+        name: z.string().nonempty("Name is required!").min(2,"Name should be more than 1 character"),
     })
 export const StoreModal = () =>{
     const storeModal = useStoreModal()
@@ -49,7 +49,7 @@ export const StoreModal = () =>{
 
                             </FormField>
                            <div className="flex gap-5">
-                                <Button type="button" className="bottom-0 self-center w-2/3 hover:bg-red-800" onSubmit={storeModal.onClose}>Cancel</Button>
+                                <Button type="button" className="bg-secondary bottom-0 self-center w-2/3 hover:bg-red-800 text-black hover:text-white" onSubmit={storeModal.onClose}>Cancel</Button>
                                 <Button type="submit" className="bottom-0 self-center w-2/3 hover:bg-green-800">Create</Button>
                             </div>
                         </form>
