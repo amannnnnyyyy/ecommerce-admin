@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "../ui/button"
 import { useState } from "react"
+import axios from "axios"
 
 const formSchema = z.object({
         name: z.string().nonempty("Name is required!").min(2,"Name should be more than 1 character"),
@@ -28,7 +29,8 @@ export const StoreModal = () =>{
         try{
             setLoading(true)
 
-            // const response = await axios
+            const response = await axios.post('/api/stores',values)
+            console.log(response.data)
         }catch(error){
             console.log(error)
         }finally{
