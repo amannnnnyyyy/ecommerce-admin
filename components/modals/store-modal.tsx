@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "../ui/button"
 import { useState } from "react"
 import axios from "axios"
+import toast from "react-hot-toast"
 
 const formSchema = z.object({
         name: z.string().nonempty("Name is required!").min(2,"Name should be more than 1 character"),
@@ -28,11 +29,15 @@ export const StoreModal = () =>{
     const onSubmit = async(values:z.infer<typeof formSchema>)=>{
         try{
             setLoading(true)
-
             const response = await axios.post('/api/stores',values)
-            console.log(response.data)
-        }catch(error){
-            console.log(error)
+            toast.success("store created successfully")
+        }catch(error:any){
+            if (error.response?.status === 400 && error.response?.data === "Store name already exists") {
+                toast.error("Store already exists. Please choose a different name.");
+            } else {
+                console.log("Store name already exists. Please choose a different name")
+                toast.error("Something went wrong");
+            }
         }finally{
             setLoading(false)
         }
@@ -74,7 +79,7 @@ export const StoreModal = () =>{
 
                             </FormField>
                            <div className="flex gap-5">
-                                <Button disabled={loading} type="button" className="bg-secondary bottom-0 self-center w-2/3 hover:bg-red-800 text-black hover:text-white" onSubmit={storeModal.onClose}>Cancel</Button>
+                                <Button disabled={loading} type="button" className="bg-secondary bottom-0 self-center w-2/3 hover:bg-red-800 text-black hover:text-white" onClick={storeModal.onClose}>Cancel</Button>
                                 <Button disabled={loading} type="submit" className="bottom-0 self-center w-2/3 hover:bg-green-800">Create</Button>
                             </div>
                         </form>
