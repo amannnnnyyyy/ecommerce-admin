@@ -29,7 +29,18 @@ export const StoreModal = () =>{
     const onSubmit = async(values:z.infer<typeof formSchema>)=>{
         try{
             setLoading(true)
-            const response = await axios.post('/api/stores',values)
+            const response = await fetch('/api/stores', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json', // Set the content type to JSON
+                },
+                body: JSON.stringify(values), // Convert the `values` object to a JSON string
+              });
+              console.log("respose = ")
+
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
             toast.success("store created successfully")
         }catch(error:any){
             if (error.response?.status === 400 && error.response?.data === "Store name already exists") {
