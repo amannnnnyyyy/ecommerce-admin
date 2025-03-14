@@ -32,11 +32,10 @@ export const StoreModal = () =>{
             const response = await fetch('/api/stores', {
                 method: 'POST',
                 headers: {
-                  'Content-Type': 'application/json', // Set the content type to JSON
+                  'Content-Type': 'application/json', 
                 },
-                body: JSON.stringify(values), // Convert the `values` object to a JSON string
+                body: JSON.stringify(values), 
               });
-              console.log("respose = ")
 
               if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
