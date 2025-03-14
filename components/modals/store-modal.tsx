@@ -49,9 +49,9 @@ export const StoreModal = () =>{
         isOpen={storeModal.isOpen}
         onClose={storeModal.onClose}>
            <div className="flex flex-col md:flex-row">
-                <img className="top-0 h-36 w-36 self-center" src="emptyStore.png" alt="" />
+                <img className="top-0 h-10 w-10 self-center" src="emptyStore.png" alt="" />
                 <div>
-                <h1 className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 text-center drop-shadow-lg">
+                <h1 className="text-lg font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 text-center drop-shadow-lg">
                     You have no store 🛒🚫
                 </h1>
 
