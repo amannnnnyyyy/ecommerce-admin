@@ -1,17 +1,13 @@
 import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import React from "react";
 
-export default async function DashboardLayout({
-    children,
-    params
+export default async function SetupLayout({
+    children
 }:{
-    children: React.ReactNode;
-    params:{storeId:string}
-}) {
+    children:React.ReactNode;
+}){
     const {userId} = await auth()
-    const { storeId } = params;
 
     if(!userId){
         redirect('/sign-in')
@@ -19,20 +15,17 @@ export default async function DashboardLayout({
 
     const store = await prismadb.store.findFirst({
         where:{
-            id: storeId,
             userId
         }
     })
 
-
-    if(!store){
-        redirect('/')
+    if(store){
+        redirect(`/${store.id}`)
     }
 
-    return (
+    return(
     <>
-    <div>Navbar</div>
     {children}
     </>
-    )
+)
 }
