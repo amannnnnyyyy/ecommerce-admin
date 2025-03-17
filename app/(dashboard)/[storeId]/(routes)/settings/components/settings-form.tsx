@@ -7,6 +7,9 @@ import { Store } from "@prisma/client"
 import { Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useParams, useRouter } from "next/navigation";
 
 //local imports
 import { Button } from "@/components/ui/button";
@@ -14,6 +17,7 @@ import Heading from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+
 
 
 interface SettingsFormProps{
@@ -28,6 +32,9 @@ type SettingsFormValues = z.infer<typeof formSchema>;
 
 const SettingsForm:React.FC<SettingsFormProps> = ({initialData}) => {
 
+    const params = useParams()
+    const router = useRouter()
+
     const [open,setOpen]=useState(false)
     const [loading,setLoading] = useState(false)
 
@@ -37,7 +44,16 @@ const SettingsForm:React.FC<SettingsFormProps> = ({initialData}) => {
     })
 
     const onSubmit = async (data:SettingsFormValues)=>{
-        console.log("submitted",data)
+        try {
+            setLoading(true);
+            await axios.patch(`/api/stores/${params.storeId}`,data)
+            router.refresh()
+            toast.success("store updated.")
+        } catch (error) {
+            toast.error("something went wrong!");
+        }finally{
+            setLoading(false)
+        }
     }
 
 
