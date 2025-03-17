@@ -12,6 +12,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Heading from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 
 interface SettingsFormProps{
@@ -38,7 +40,7 @@ const SettingsForm:React.FC<SettingsFormProps> = ({initialData}) => {
         console.log("submitted",data)
     }
 
-    
+
   return (
     <>
         <div className="flex items-center justify-between">
@@ -55,6 +57,23 @@ const SettingsForm:React.FC<SettingsFormProps> = ({initialData}) => {
                 </Button>
         </div>
         <Separator className="my-4"/>
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
+                <div className="grid grid-cols-3 gap-8">
+                    <FormField 
+                        control={form.control} 
+                        name="name"
+                        render={({field})=>(
+                            <FormItem>
+                                <FormLabel>Name</FormLabel>
+                                <FormControl>
+                                    <Input/>
+                                </FormControl>
+                            </FormItem>
+                        )}/>
+                </div>
+            </form>
+        </Form>
     </>
   )
 }
