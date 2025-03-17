@@ -29,7 +29,7 @@ const AlertModal:React.FC<AlertModalProps> = ({
         return null
     }
   return (
-    <Modal title={"Are you sure?"} description={"You will not get thid data back after deleting."} isOpen={isOpen} onClose={onClose}>
+    <Modal title={"Are you sure?"} description={"You will not get this data back after deleting."} isOpen={isOpen} onClose={onClose}>
         <div className="pt-6 space-x-2 flex items-center justify-end w-full">
             <Button disabled={loading} variant="outline" onClick={onClose}>
                 Cancel
