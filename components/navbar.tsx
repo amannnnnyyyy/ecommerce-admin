@@ -7,7 +7,7 @@ const Navbar = () => {
     <div className="border-b">
       <div className="flex h-16 items-center px-4 gap-3">
         
-        <StoreSwitcher/>
+        <StoreSwitcher items={[]} />
         
         <MainNav className="mx-6"/>
 
