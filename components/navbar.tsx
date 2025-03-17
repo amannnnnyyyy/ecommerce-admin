@@ -1,6 +1,10 @@
 const Navbar = () => {
   return (
-    <div>This is a navbar component</div>
+    <div className="border-b">
+      <div className="flex h-16 items-center px-4">
+        <div>Store switcher</div>
+      </div>
+    </div>
   )
 }
 
