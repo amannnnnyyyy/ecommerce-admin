@@ -17,6 +17,7 @@ import Heading from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import AlertModal from "@/components/modals/alert-modal";
 
 
 
@@ -59,6 +60,7 @@ const SettingsForm:React.FC<SettingsFormProps> = ({initialData}) => {
 
   return (
     <>
+        <AlertModal isOpen={open} onClose={()=>setOpen(false)} onConfirm={function (): void {} } loading={loading}/>
         <div className="flex items-center justify-between">
             <Heading
                 title="settings"

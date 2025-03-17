@@ -1,8 +1,11 @@
 "use client"
 
+//global imports
 import { useEffect, useState } from "react"
 
+//local imports
 import { Modal } from "@/components/ui/modal";
+import { Button } from "@/components/ui/button";
 
 interface AlertModalProps{
     isOpen: boolean,
@@ -27,8 +30,11 @@ const AlertModal:React.FC<AlertModalProps> = ({
     }
   return (
     <Modal title={"Are you sure?"} description={"You will not get thid data back after deleting."} isOpen={isOpen} onClose={onClose}>
-        <div>
-
+        <div className="pt-6 space-x-2 flex items-center justify-end w-full">
+            <Button disabled={loading} variant="outline" onClick={onClose}>
+                Cancel
+            </Button>
+            <Button disabled={loading} variant="destructive" onClick={onConfirm}>Continue</Button>
         </div>
     </Modal>
   )
