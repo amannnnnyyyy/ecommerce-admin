@@ -43,9 +43,9 @@ const BillboardsForm:React.FC<BillboardsFormProps> = ({initialData}) => {
     const [open,setOpen]=useState(false)
     const [loading,setLoading] = useState(false)
 
-    const title  = initialData ? "Edit Billboard" : "Create Billboards"
-    const description  = initialData ? "Edit Billboard" : "Add a new Billboards"
-    const toastMessage  = initialData ? "Billboard updated" : "Billboards created"
+    const title  = initialData ? "Edit Billboard" : "Create Billboard"
+    const description  = initialData ? "Edit Billboard" : "Add a new Billboard"
+    const toastMessage  = initialData ? "Billboard updated" : "Billboard created"
     const action  = initialData ? "Save Changes" : "Create"
 
 
@@ -96,14 +96,14 @@ const BillboardsForm:React.FC<BillboardsFormProps> = ({initialData}) => {
                 title={title}
                 description={description}
                 />
-                <Button
+                {initialData&&(<Button
                     disabled={loading}
                     variant="destructive"
                     size="icon"
                     onClick={()=>setOpen(true)}
                     >
                         <Trash className="h-4 w-4"/>
-                </Button>
+                </Button>)}
         </div>
         <Separator className="my-4"/>
         <Form {...form}>
@@ -114,11 +114,11 @@ const BillboardsForm:React.FC<BillboardsFormProps> = ({initialData}) => {
                         name="label"
                         render={({field})=>(
                             <FormItem className="w-44 sm:w-60 md:w-full">
-                                <FormLabel>Name</FormLabel>
+                                <FormLabel>Label</FormLabel>
                                 <FormControl>
                                     <Input 
                                         disabled={loading}
-                                        placeholder="Store name"
+                                        placeholder="Billboard label"
                                         {...field}
                                         className="w-full"/>
                                 </FormControl>
