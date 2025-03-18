@@ -95,17 +95,18 @@ const SettingsForm:React.FC<SettingsFormProps> = ({initialData}) => {
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
                 <div className="grid grid-cols-3 gap-8">
-                    <FormField 
+                    <FormField
                         control={form.control} 
                         name="name"
                         render={({field})=>(
-                            <FormItem>
+                            <FormItem className="w-44 sm:w-60 md:w-full">
                                 <FormLabel>Name</FormLabel>
                                 <FormControl>
                                     <Input 
                                         disabled={loading}
                                         placeholder="Store name"
-                                        {...field}/>
+                                        {...field}
+                                        className="w-full"/>
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
