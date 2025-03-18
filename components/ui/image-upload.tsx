@@ -44,7 +44,7 @@ const ImageUpload:React.FC<ImageUploadProps> = ({
                             <Trash className="h-4 w-4"/>
                         </Button>
                     </div>
-                    <Image fill className="object-cover" src={url} alt={"image"}/>
+                    <Image fill className="object-cover" src={url} alt={"image"} sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"/>
                 </div>
             ))}
         </div>
@@ -58,10 +58,9 @@ const ImageUpload:React.FC<ImageUploadProps> = ({
                         type="button"
                         disabled={disabled} 
                         onClick={onClick} 
-                        size="icon" 
                         variant="secondary">
-                        <ImagePlus className="h-4 w-4"/>
-                        <Image src="/images/upload.svg" alt="upload" className="h-6 w-6"/>
+                        <ImagePlus className="h-4 w-4 mr-2"/>
+                        Upload an image
                     </Button>
                 )
             }}

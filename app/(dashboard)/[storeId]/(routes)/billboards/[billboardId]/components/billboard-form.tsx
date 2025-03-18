@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import AlertModal from "@/components/modals/alert-modal";
 import ApiAlert from "@/components/ui/api-alert";
 import { useOrigin } from "@/hooks/use-origin";
+import ImageUpload from "@/components/ui/image-upload";
 
 
 
@@ -96,18 +97,37 @@ const BillboardsForm:React.FC<BillboardsFormProps> = ({initialData}) => {
                 title={title}
                 description={description}
                 />
-                {initialData&&(<Button
+                {initialData&&(
+                <Button
                     disabled={loading}
                     variant="destructive"
                     size="icon"
                     onClick={()=>setOpen(true)}
                     >
                         <Trash className="h-4 w-4"/>
-                </Button>)}
+                </Button>
+            )}
         </div>
         <Separator className="my-4"/>
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
+                <FormField
+                    control={form.control} 
+                    name="imageUrl"
+                    render={({field})=>(
+                        <FormItem className="w-44 sm:w-60 md:w-full">
+                            <FormLabel>Background image</FormLabel>
+                            <FormControl>
+                                <ImageUpload 
+                                    disabled={loading} 
+                                    onChange={(url)=>field.onChange(url)} 
+                                    onRemove={()=>field.onChange("")} 
+                                    value={field.value?[field.value]:[]}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                )}/>
                 <div className="grid grid-cols-3 gap-8">
                     <FormField
                         control={form.control} 
