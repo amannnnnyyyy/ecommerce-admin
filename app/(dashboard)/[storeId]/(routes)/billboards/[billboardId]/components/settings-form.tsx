@@ -43,6 +43,12 @@ const BillboardsForm:React.FC<BillboardsFormProps> = ({initialData}) => {
     const [open,setOpen]=useState(false)
     const [loading,setLoading] = useState(false)
 
+    const title  = initialData ? "Edit Billboard" : "Create Billboards"
+    const description  = initialData ? "Edit Billboard" : "Add a new Billboards"
+    const toastMessage  = initialData ? "Billboard updated" : "Billboards created"
+    const action  = initialData ? "Save Changes" : "Create"
+
+
     const form = useForm<BillboardsFormValues>({
         resolver: zodResolver(formSchema),
         defaultValues:initialData || {
@@ -87,8 +93,8 @@ const BillboardsForm:React.FC<BillboardsFormProps> = ({initialData}) => {
         <AlertModal isOpen={open} onClose={()=>setOpen(false)} onConfirm={onDelete} loading={loading}/>
         <div className="flex items-center justify-between">
             <Heading
-                title="Billboards"
-                description="Manage store preferences"
+                title={title}
+                description={description}
                 />
                 <Button
                     disabled={loading}
@@ -105,7 +111,7 @@ const BillboardsForm:React.FC<BillboardsFormProps> = ({initialData}) => {
                 <div className="grid grid-cols-3 gap-8">
                     <FormField
                         control={form.control} 
-                        name="name"
+                        name="label"
                         render={({field})=>(
                             <FormItem className="w-44 sm:w-60 md:w-full">
                                 <FormLabel>Name</FormLabel>
@@ -124,12 +130,12 @@ const BillboardsForm:React.FC<BillboardsFormProps> = ({initialData}) => {
                     disabled={loading}
                     className="ml-auto"
                     type="submit">
-                        Save Changes
+                        {action}
                 </Button>
             </form>
         </Form>
         <Separator className="my-4"/>
-        <ApiAlert title={"NEXT_PUBLIC_API_URL"} description={`${origin}/api/${params.storeId}`} variant={"public"}/>
+        {/* <ApiAlert title={"NEXT_PUBLIC_API_URL"} description={`${origin}/api/${params.storeId}`} variant={"public"}/> */}
     </div>
   )
 }
