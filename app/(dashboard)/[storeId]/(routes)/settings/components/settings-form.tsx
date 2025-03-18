@@ -75,7 +75,7 @@ const SettingsForm:React.FC<SettingsFormProps> = ({initialData}) => {
 
 
   return (
-    <>
+    <div className="mx-5 border-l border-t border-blue-400 p-4 shadow-md">
         <AlertModal isOpen={open} onClose={()=>setOpen(false)} onConfirm={onDelete} loading={loading}/>
         <div className="flex items-center justify-between">
             <Heading
@@ -119,7 +119,7 @@ const SettingsForm:React.FC<SettingsFormProps> = ({initialData}) => {
                 </Button>
             </form>
         </Form>
-    </>
+    </div>
   )
 }
 
