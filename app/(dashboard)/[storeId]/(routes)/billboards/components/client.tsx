@@ -8,8 +8,16 @@ import { useParams, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import Heading from "@/components/ui/heading"
 import { Separator } from "@/components/ui/separator"
+import { Billboard } from "@prisma/client"
 
-const BillboardClient = () => {
+
+interface BillboardClientProps{
+  data:Billboard[]
+}
+
+const BillboardClient:React.FC<BillboardClientProps> = ({
+  data
+}) => {
 
     const router = useRouter()
     const params = useParams()
@@ -17,7 +25,7 @@ const BillboardClient = () => {
   return (
     <>
         <div className="flex items-center justify-between">
-            <Heading title={"Billboard (0)"} description={"Manage billboards for your store"}/>
+            <Heading title={`Billboard (${data.length})`} description={"Manage billboards for your store"}/>
     
             <Button onClick={()=>router.push(`/${params.storeId}/billboards/new`)}>
                 <Plus className="mr-2 w-4 h-4"/>
