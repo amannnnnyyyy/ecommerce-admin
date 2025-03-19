@@ -2,7 +2,8 @@ import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request, {params}:{params:{ storeId : string}}){    
+export async function POST(req: Request, {params}:{params:{ storeId : string}}){ 
+    console.log("heeeeeeeeeeeeeeeeeeeeey")   
     try {
         const body = await req.json();
 
@@ -31,10 +32,6 @@ export async function POST(req: Request, {params}:{params:{ storeId : string}}){
         const billboard = await prismadb.billboard.create({
             data: { label,imageUrl, storeId: params.storeId }
         });
-
-        if (billboard) {
-            return new NextResponse("Store name already exists", { status: 400 });
-        }
             
         
         return NextResponse.json(billboard,{status:201})
