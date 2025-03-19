@@ -1,8 +1,12 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
+//global imports
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
+
+//loacl imports
+import { Button } from "@/components/ui/button"
+import { CellAction } from "./cell-action"
 
 export type BillboardColumn = {
   id: string
@@ -38,5 +42,9 @@ export const columns: ColumnDef<BillboardColumn>[] = [
           </Button>
         )
       },
+  },
+  {
+    id: "actions",
+    cell:()=><CellAction/>
   },
 ]
