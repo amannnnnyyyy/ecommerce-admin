@@ -11,6 +11,14 @@ export default clerkMiddleware((auth,req)=>{
 
   const { pathname } = req.nextUrl;
 
+  if (pathname.startsWith('/api/')) {
+    return NextResponse.next();
+  }
+
+  if (!isPublicRoute(req)) {
+    auth.protect();
+  }
+
     if (process.env.NODE_ENV === 'development') {
         if (pathname === '/sign-up' && req.url.startsWith('https://normal-pipefish-33.accounts.dev')) {
             return NextResponse.redirect(new URL('/sign-up', LOCAL_URL));
