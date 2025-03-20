@@ -3,7 +3,7 @@
 //global imports
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Category } from "@prisma/client"
+import { Billboard, Category } from "@prisma/client"
 import { Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -18,28 +18,27 @@ import { Separator } from "@/components/ui/separator";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import AlertModal from "@/components/modals/alert-modal";
-import ApiAlert from "@/components/ui/api-alert";
-import { useOrigin } from "@/hooks/use-origin";
-import ImageUpload from "@/components/ui/image-upload";
+import { Select, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { SelectItem } from "@radix-ui/react-select";
 
 
 
 interface CategoryFormProps{
     initialData: Category | null;
+    billboards: Billboard[];
 }
 
 const formSchema = z.object({
     name: z.string().min(1),
-    billboardLabel: z.string().min(1)
+    billboardId: z.string().min(1)
 })
 
 type CategoryFormValues = z.infer<typeof formSchema>;
 
-const CategoryForm:React.FC<CategoryFormProps> = ({initialData}) => {
+const CategoryForm:React.FC<CategoryFormProps> = ({initialData, billboards}) => {
 
     const params = useParams()
     const router = useRouter()
-    const origin = useOrigin()
 
     const [open,setOpen]=useState(false)
     const [loading,setLoading] = useState(false)
@@ -54,7 +53,7 @@ const CategoryForm:React.FC<CategoryFormProps> = ({initialData}) => {
         resolver: zodResolver(formSchema),
         defaultValues:initialData || {
             name : "",
-            billboardLabel : "",
+            billboardId : "",
 
         }
     })
@@ -63,12 +62,12 @@ const CategoryForm:React.FC<CategoryFormProps> = ({initialData}) => {
         try {
             setLoading(true);
             if(initialData)
-                await axios.patch(`/api/${params.storeId}/billboards/${params.billboardId}`,data)
+                await axios.patch(`/api/${params.storeId}/categories/${params.billboardId}`,data)
             else
-                await axios.post(`/api/${params.storeId}/billboards`,data)
+                await axios.post(`/api/${params.storeId}/categories`,data)
 
             router.refresh()
-            router.push(`/${params.storeId}/billboards`)
+            router.push(`/${params.storeId}/categories`)
             toast.success(toastMessage)
         } catch (error) {
             toast.error("something went wrong!");
@@ -81,12 +80,12 @@ const CategoryForm:React.FC<CategoryFormProps> = ({initialData}) => {
     const onDelete = async ()=>{
         try {
             setLoading(true)
-            await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`)
+            await axios.delete(`/api/${params.storeId}/categories/${params.billboardId}`)
             router.refresh()
-            router.push(`/${params.storeId}/billboards`)
-            toast.success("Billboard deleted successfully")
+            router.push(`/${params.storeId}/categories`)
+            toast.success("Category deleted successfully")
         } catch (error) {
-            toast.error("Make sure you removed all categories using this billboard first!")
+            toast.error("Something went wrong")
         }finally{
             setLoading(false)
             setOpen(false)
@@ -116,37 +115,53 @@ const CategoryForm:React.FC<CategoryFormProps> = ({initialData}) => {
         <Separator className="my-4"/>
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
-                <FormField
-                    control={form.control} 
-                    name="name"
-                    render={({field})=>(
-                        <FormItem className="w-44 sm:w-60 md:w-full">
-                            <FormLabel>Background image</FormLabel>
-                            <FormControl>
-                                <ImageUpload 
-                                    disabled={loading} 
-                                    onChange={(url)=>field.onChange(url)} 
-                                    onRemove={()=>field.onChange("")} 
-                                    value={field.value?[field.value]:[]}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                )}/>
                 <div className="grid grid-cols-3 gap-8">
                     <FormField
                         control={form.control} 
                         name="name"
                         render={({field})=>(
                             <FormItem className="w-44 sm:w-60 md:w-full">
-                                <FormLabel>Label</FormLabel>
+                                <FormLabel>Name</FormLabel>
                                 <FormControl>
                                     <Input 
                                         disabled={loading}
-                                        placeholder="Billboard label"
+                                        placeholder="Category Name"
                                         {...field}
                                         className="w-full"/>
                                 </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}/>
+                        <FormField
+                        control={form.control} 
+                        name="billboardId"
+                        render={({field})=>(
+                            <FormItem className="w-44 sm:w-60 md:w-full">
+                                <FormLabel>Billboard</FormLabel>
+                                    <Select 
+                                        disabled={loading} 
+                                        onValueChange={field.onChange} 
+                                        value={field.value} 
+                                        defaultValue={field.value}>
+                                           <FormControl>
+                                             <SelectTrigger>
+                                                <SelectValue 
+                                                    defaultValue={field.value} 
+                                                    placeholder="Select a billboard" 
+                                                />
+                                             </SelectTrigger>
+                                           </FormControl>
+
+                                           <SelectContent>
+                                            {billboards.map((billboard)=>(
+                                                <SelectItem 
+                                                    key={billboard.id}
+                                                    value={billboard.label}>
+                                                        {billboard.label}
+                                                </SelectItem>
+                                            ))}
+                                           </SelectContent>
+                                    </Select>
                                 <FormMessage />
                             </FormItem>
                         )}/>
