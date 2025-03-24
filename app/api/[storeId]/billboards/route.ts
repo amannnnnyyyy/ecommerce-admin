@@ -3,7 +3,6 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request, {params}:{params:{ storeId : string}}){ 
-    console.log("heeeeeeeeeeeeeeeeeeeeey")   
     try {
         const body = await req.json();
 
@@ -11,11 +10,11 @@ export async function POST(req: Request, {params}:{params:{ storeId : string}}){
         const {label, imageUrl} = body;
         
         if(!userId) return new NextResponse("Unauthenticated",{status: 401})
-        if(!label) return new NextResponse("Label is required",{status:400})
-        if(!imageUrl) return new NextResponse("Image is required",{status:400})
+        if(!label) return new NextResponse("Label is required",{status: 400})
+        if(!imageUrl) return new NextResponse("Image is required",{status:  400})
 
         if(!params.storeId)
-            return new NextResponse("Store id is required", { status: 400 });
+            return new NextResponse("Store id is required", { status: 400});
 
         const storeByUserId = await prismadb.store.findFirst(
             {
@@ -34,10 +33,10 @@ export async function POST(req: Request, {params}:{params:{ storeId : string}}){
         });
             
         
-        return NextResponse.json(billboard,{status:201})
+        return NextResponse.json(billboard,{status: 201})
     } catch (error) {
         console.log('[BILLBOARDS_POST]',error);
-        return new NextResponse("Internal Server Error",{status:500})
+        return new NextResponse("Internal Server Error",{status: 500})
     }
 }
 

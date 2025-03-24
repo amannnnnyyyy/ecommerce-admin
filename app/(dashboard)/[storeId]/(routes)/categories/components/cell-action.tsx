@@ -28,7 +28,6 @@ export const CellAction:React.FC<CellActionProps> =({data}) =>{
     const [open,setOpen]=useState(false)
 
     const onCopy = (text:string) =>{
-        console.log("copying")
         navigator.clipboard.writeText(text)
         toast.success("Category Id copied to clipboard")
     }

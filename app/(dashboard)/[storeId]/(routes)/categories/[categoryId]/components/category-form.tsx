@@ -18,9 +18,7 @@ import { Separator } from "@/components/ui/separator";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import AlertModal from "@/components/modals/alert-modal";
-import { Select, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { SelectItem } from "@radix-ui/react-select";
-
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 
 interface CategoryFormProps{
@@ -54,7 +52,6 @@ const CategoryForm:React.FC<CategoryFormProps> = ({initialData, billboards}) => 
         defaultValues:initialData || {
             name : "",
             billboardId : "",
-
         }
     })
 
@@ -133,38 +130,37 @@ const CategoryForm:React.FC<CategoryFormProps> = ({initialData, billboards}) => 
                             </FormItem>
                         )}/>
                         <FormField
-                        control={form.control} 
-                        name="billboardId"
-                        render={({field})=>(
-                            <FormItem className="w-44 sm:w-60 md:w-full">
-                                <FormLabel>Billboard</FormLabel>
-                                    <Select 
-                                        disabled={loading} 
-                                        onValueChange={field.onChange} 
-                                        value={field.value} 
-                                        defaultValue={field.value}>
-                                           <FormControl>
-                                             <SelectTrigger>
-                                                <SelectValue 
-                                                    defaultValue={field.value} 
-                                                    placeholder="Select a billboard" 
-                                                />
-                                             </SelectTrigger>
-                                           </FormControl>
-
-                                           <SelectContent>
-                                            {billboards.map((billboard)=>(
-                                                <SelectItem 
+                            control={form.control}
+                            name="billboardId"
+                            render={({ field }) => (
+                                <FormItem className="w-44 sm:w-60 md:w-full">
+                                    <FormLabel>Billboard</FormLabel>
+                                    <Select
+                                        disabled={loading}
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                        defaultValue={field.value}
+                                    >
+                                        <FormControl>
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Select a billboard" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {billboards.map((billboard) => (
+                                                <SelectItem
                                                     key={billboard.id}
-                                                    value={billboard.label}>
-                                                        {billboard.label}
+                                                    value={billboard.id} 
+                                                >
+                                                    {billboard.label}
                                                 </SelectItem>
                                             ))}
-                                           </SelectContent>
+                                        </SelectContent>
                                     </Select>
-                                <FormMessage />
-                            </FormItem>
-                        )}/>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
                 </div>
                 <Button 
                     disabled={loading}
