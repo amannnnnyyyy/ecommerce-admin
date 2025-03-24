@@ -143,14 +143,14 @@ const CategoryForm:React.FC<CategoryFormProps> = ({initialData, billboards}) => 
                                     >
                                         <FormControl>
                                             <SelectTrigger>
-                                                <SelectValue placeholder="Select a billboard" />
+                                                <SelectValue defaultValue={field.value} placeholder="Select a billboard" />
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
                                             {billboards.map((billboard) => (
                                                 <SelectItem
                                                     key={billboard.id}
-                                                    value={billboard.id} 
+                                                    value={billboard.id}
                                                 >
                                                     {billboard.label}
                                                 </SelectItem>
