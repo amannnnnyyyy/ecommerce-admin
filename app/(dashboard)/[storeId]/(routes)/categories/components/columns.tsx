@@ -17,7 +17,7 @@ export type CategoryColumn = {
 
 export const columns: ColumnDef<CategoryColumn>[] = [
   {
-    accessorKey: "name",
+    accessorKey: "label",
     header: ({ column }) => {
         return (
           <Button
