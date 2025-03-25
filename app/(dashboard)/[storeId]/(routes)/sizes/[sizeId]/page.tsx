@@ -1,15 +1,15 @@
 import prismadb from "@/lib/prismadb"
-import BillboardsForm from "./components/billboard-form"
+import SizeForm from "./components/size-form"
 
 const BillboardPage = async({
     params
 }:{
-    params: {billboardId: string}
+    params: {sizeId: string}
 }) => {
 
-    const billboard = await prismadb.billboard.findUnique({
+    const size = await prismadb.size.findUnique({
         where:{
-            id: params.billboardId
+            id: params.sizeId
         }
     })
 
@@ -18,7 +18,7 @@ const BillboardPage = async({
   return (
     <div className="flex-col">
         <div className="flex-1 space-y-4 p-8 pt-6">
-            <BillboardsForm initialData={billboard}/>
+            <SizeForm initialData={size}/>
         </div>
     </div>
   )

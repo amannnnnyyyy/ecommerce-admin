@@ -28,18 +28,18 @@ const SizeClient:React.FC<SizeClientProps> = ({
   return (
     <>
         <div className="flex items-center justify-between">
-            <Heading title={`Billboard (${data.length})`} description={"Manage billboards for your store"}/>
+            <Heading title={`Sizes (${data.length})`} description={"Manage sizes for your store"}/>
     
-            <Button onClick={()=>router.push(`/${params.storeId}/billboards/new`)}>
+            <Button onClick={()=>router.push(`/${params.storeId}/sizes/new`)}>
                 <Plus className="mr-2 w-4 h-4"/>
                 Add New
             </Button>
         </div>
         <Separator/>
         <DataTable searchKey="name" columns={columns} data={data}></DataTable>
-        <Heading title={`API`} description={'API calls for Billboards'}/>
+        <Heading title={`API`} description={'API calls for Sizes'}/>
         <Separator/>
-        <ApiList entityName={"billboards"} entityIdName={"billboardsId"}/>
+        <ApiList entityName={"sizes"} entityIdName={"sizesId"}/>
     </>
   )
 }
