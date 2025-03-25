@@ -13,11 +13,11 @@ import { Button } from "@/components/ui/button";
 import AlertModal from "@/components/modals/alert-modal";
 
    //local relative
-import { SizeColumn } from "./columns"
+import { ColorColumn } from "./columns"
 
 
 interface CellActionProps{
-    data:SizeColumn;
+    data:ColorColumn;
 }
 
 export const CellAction:React.FC<CellActionProps> =({data}) =>{
@@ -29,17 +29,17 @@ export const CellAction:React.FC<CellActionProps> =({data}) =>{
 
     const onCopy = (text:string) =>{
         navigator.clipboard.writeText(text)
-        toast.success("Size Id copied to clipboard")
+        toast.success("Color Id copied to clipboard")
     }
 
     const onDelete = async ()=>{
         try {
             setLoading(true)
-            await axios.delete(`/api/${params.storeId}/sizes/${data.id}`)
+            await axios.delete(`/api/${params.storeId}/colors/${data.id}`)
             router.refresh()
-            toast.success("Size deleted successfully")
+            toast.success("Color deleted successfully")
         } catch (error) {
-            toast.error("Make sure you removed all product using this size first!")
+            toast.error("Make sure you removed all product using this color first!")
         }finally{
             setLoading(false)
             setOpen(false)
@@ -63,7 +63,7 @@ export const CellAction:React.FC<CellActionProps> =({data}) =>{
             <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>            
                 <DropdownMenuItem  onClick={()=>onCopy(data.id)}><Copy className="mr-2 h-4 w-4"/>Copy id</DropdownMenuItem>
-                <DropdownMenuItem onClick={()=>router.push(`/${params.storeId}/sizes/${data.id}`)}><Edit className="mr-2 h-4 w-4 text-blue-600"/>Update</DropdownMenuItem>
+                <DropdownMenuItem onClick={()=>router.push(`/${params.storeId}/colors/${data.id}`)}><Edit className="mr-2 h-4 w-4 text-blue-600"/>Update</DropdownMenuItem>
                 <DropdownMenuItem onClick={()=>setOpen(true)}><Trash className="mr-2 h-4 w-4 text-red-500"/>Delete</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

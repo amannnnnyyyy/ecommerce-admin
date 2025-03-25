@@ -8,14 +8,14 @@ import { ArrowUpDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { CellAction } from "./cell-action"
 
-export type SizeColumn = {
+export type ColorColumn = {
   id: string
   name: string
   value: string
   createdAt: string
 }
 
-export const columns: ColumnDef<SizeColumn>[] = [
+export const columns: ColumnDef<ColorColumn>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => {
