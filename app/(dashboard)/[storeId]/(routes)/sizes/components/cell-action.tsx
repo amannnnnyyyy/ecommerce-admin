@@ -13,11 +13,11 @@ import { Button } from "@/components/ui/button";
 import AlertModal from "@/components/modals/alert-modal";
 
    //local relative
-import { BillboardColumn } from "./columns"
+import { SizeColumn } from "./columns"
 
 
 interface CellActionProps{
-    data:BillboardColumn;
+    data:SizeColumn;
 }
 
 export const CellAction:React.FC<CellActionProps> =({data}) =>{

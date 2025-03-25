@@ -11,14 +11,14 @@ import { Separator } from "@/components/ui/separator"
 import { DataTable } from "@/components/ui/data-table"
 import { ApiList } from "@/components/ui/api-list"
 
-import { BillboardColumn, columns } from "./columns"
+import { SizeColumn, columns } from "./columns"
 
 
-interface BillboardClientProps{
-  data:BillboardColumn[]
+interface SizeClientProps{
+  data:SizeColumn[]
 }
 
-const BillboardClient:React.FC<BillboardClientProps> = ({
+const SizeClient:React.FC<SizeClientProps> = ({
   data
 }) => {
 
@@ -36,7 +36,7 @@ const BillboardClient:React.FC<BillboardClientProps> = ({
             </Button>
         </div>
         <Separator/>
-        <DataTable searchKey="label" columns={columns} data={data}></DataTable>
+        <DataTable searchKey="name" columns={columns} data={data}></DataTable>
         <Heading title={`API`} description={'API calls for Billboards'}/>
         <Separator/>
         <ApiList entityName={"billboards"} entityIdName={"billboardsId"}/>
@@ -44,4 +44,4 @@ const BillboardClient:React.FC<BillboardClientProps> = ({
   )
 }
 
-export default BillboardClient
+export default SizeClient
