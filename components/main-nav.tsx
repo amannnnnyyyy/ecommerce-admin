@@ -37,6 +37,11 @@ export function MainNav({
         active: pathName.includes(`/${params.storeId}/colors`)
     },
     {
+        href:`/${params.storeId}/products`,
+        label:'Products',
+        active: pathName.includes(`/${params.storeId}/products`)
+    },
+    {
         href:`/${params.storeId}/settings`,
         label:'Settings',
         active: pathName.includes(`/${params.storeId}/settings`)
