@@ -18,8 +18,6 @@ import { Separator } from "@/components/ui/separator";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import AlertModal from "@/components/modals/alert-modal";
-import ApiAlert from "@/components/ui/api-alert";
-import { useOrigin } from "@/hooks/use-origin";
 import ImageUpload from "@/components/ui/image-upload";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -28,7 +26,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 interface ProductFormProps{
     initialData: Product & {
-        images: Image[] | null;
+        images: Image[]
     } | null;
 
     categories: Category[];
@@ -67,7 +65,6 @@ const ProductForm:React.FC<ProductFormProps> = ({initialData, categories, colors
         resolver: zodResolver(formSchema),
         defaultValues: initialData ? {
             ...initialData,
-            images: initialData.images ? initialData.images.map(image => ({ url: image.url })) : [],
             price: parseFloat(String(initialData?.price))
         } : {
             name: "",
@@ -145,12 +142,18 @@ const ProductForm:React.FC<ProductFormProps> = ({initialData, categories, colors
                         <FormItem className="w-44 sm:w-60 md:w-full">
                             <FormLabel>Images</FormLabel>
                             <FormControl>
-                                <ImageUpload
-                                    disabled={loading} 
-                                    onChange={(url)=>field.onChange([...field.value, {url}])} 
-                                    onRemove={(url)=>field.onChange([...field.value.filter((current)=>current.url !== url)])} 
-                                    value={field.value.map((image)=>image.url)}
-                                />
+                                <ImageUpload  
+                                        value={field.value.map((image) => image.url)}
+                                        disabled={loading}
+                                        onChange={(url) => {
+                                            const newValue = [...field.value, { url }];
+                                            field.onChange((field.value = newValue));
+                                        }}
+                                        onRemove={(url) => {
+                                            const newValue = field.value.filter((current) => current.url !== url);
+                                            field.onChange(newValue);
+                                        }}
+                                    />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
