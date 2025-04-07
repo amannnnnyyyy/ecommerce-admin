@@ -15,6 +15,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const metadata: Metadata = {
+  title: "Store-admin",
+  description: "Store-admin",
+  icons: {
+    icon: "/braids.svg"
+  }
+};
 
 export default function RootLayout({
   children,
